@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_farm_monitoring_admin/farm.dart';
 
 import 'navigate_bar.dart';
 
@@ -10,7 +11,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool flag = false;
+  String username;
+  String password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,68 +60,64 @@ class _LoginState extends State<Login> {
                   height: 40,
                 ),
                 TextField(
+                  onChanged: (newValue){
+                    username=newValue;
+                  },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30.0),
                         borderSide: BorderSide(color: Color(0xff0195FF))),
                     prefixIcon: Icon(
-                      Icons.phone_android,
+                      Icons.person,
                       color: Colors.cyan,
                     ),
-                    labelText: "Phone Number",
-                    hintText: "Enter Phone Number",
+                    labelText: "Username",
+                    hintText: "Enter Usernamer",
                   ),
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.emailAddress,
                 ),
                 SizedBox(
                   height: 30.0,
                 ),
-                Visibility(
-                  child: TextField(
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                            borderSide: BorderSide(color: Color(0xff0195FF))),
-                        prefixIcon: Icon(
-                          Icons.message,
-                          color: Colors.cyan,
-                        ),
-                        labelText: "OTP",
-                        hintText: "Enter OTP"),
-                    keyboardType: TextInputType.phone,
+                TextField(
+                  onChanged: (newValue){
+                    password=newValue;
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        borderSide: BorderSide(color: Color(0xff0195FF))),
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: Colors.cyan,
+                    ),
+                    labelText: "Password",
+                    hintText: "Enter Password",
                   ),
-                  visible: flag,
+                  obscureText: true,
                 ),
+                SizedBox(
+                  height: 30.0,
+                ),
+
                 SizedBox(
                   height: 20.0,
                 ),
-                !flag
-                    ? RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        child: Text(
-                          'Generate OTP',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            flag = true;
-                          });
-                        },
-                        color: Color(0xff52B7FF),
-                      )
-                    : RaisedButton(
-
-                        child: Text(
-                          'Log in',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, NavigateBar.id);
-                          setState(() {});
-                        },
-                        color: Color(0xff52B7FF),
-                      ),
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: Text(
+                    'Login',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    if (username=="admin@gmail.com" && password=="admin123"){
+                      print("logged in");
+                      Navigator.pushNamed(context, NavigateBar.id);
+                    }
+                  },
+                  color: Color(0xff52B7FF),
+                )
               ],
             ),
           ),
