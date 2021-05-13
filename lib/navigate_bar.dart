@@ -3,6 +3,7 @@ import 'package:smart_farm_monitoring_admin/farm.dart';
 import 'package:smart_farm_monitoring_admin/UserRegistration.dart';
 import 'package:smart_farm_monitoring_admin/plot.dart';
 import 'package:smart_farm_monitoring_admin/voucher.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 
 class NavigateBar extends StatefulWidget {
   static String id="navigateBar";
@@ -21,21 +22,21 @@ class _NavigateBarState extends State<NavigateBar> {
         style: TextStyle(
           fontSize: 18,
         )),
-    Text('Crop',
-        style: TextStyle(
-          fontSize: 18,
-        )),
-    Text('Voucher',
-        style: TextStyle(
-          fontSize: 18,
-        )),
+    // Text('Crop',
+    //     style: TextStyle(
+    //       fontSize: 18,
+    //     )),
+    // Text('Voucher',
+    //     style: TextStyle(
+    //       fontSize: 18,
+    //     )),
   ];
 
   List<Widget> _options = <Widget>[
     UserRegistration(),
     Farm(),
-    Plot(),
-    Voucher(),
+    // Plot(),
+    // Voucher(),
   ];
   void _onItemTap(int index) {
     setState(() {
@@ -49,44 +50,52 @@ class _NavigateBarState extends State<NavigateBar> {
       body: Center(
         child: _options.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
+      bottomNavigationBar: BottomNavyBar(
+          // type: BottomNavigationBarType.shifting,
+          selectedIndex: _selectedIndex,
+          onItemSelected: (index){
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+          // selectedItemColor: Colors.cyan,
+          // unselectedItemColor: Colors.grey,
+          // iconSize: 25,
+          // onTap: _onItemTap,
+          // elevation: 5),
+        mainAxisAlignment: MainAxisAlignment.center,
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
               icon: Icon(
                 Icons.person,
-                color: Colors.blueGrey,
+                color: _selectedIndex==0?Colors.cyan:Colors.blueGrey,
               ),
-              label: 'User',
+              title: Text('User'),
             ),
-            BottomNavigationBarItem(
+            BottomNavyBarItem(
               icon: Icon(
                 Icons.dashboard,
-                color: Colors.blueGrey,
+                color: _selectedIndex==1?Colors.cyan:Colors.blueGrey,
               ),
-              label: 'Farm',
+              title: Text('Farm'),
+
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.crop_square,
-                color: Colors.blueGrey,
-              ),
-              label: 'Plot',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.shopping_cart,
-                color: Colors.blueGrey,
-              ),
-              label: 'Voucher',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.crop_square,
+            //     color: Colors.blueGrey,
+            //   ),
+            //   label: 'Plot',
+            // ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.shopping_cart,
+            //     color: Colors.blueGrey,
+            //   ),
+            //   label: 'Voucher',
+            // ),
           ],
-          type: BottomNavigationBarType.shifting,
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.grey,
-          unselectedItemColor: Colors.grey,
-          iconSize: 25,
-          onTap: _onItemTap,
-          elevation: 5),
-    );
+
+    ));
   }
 }

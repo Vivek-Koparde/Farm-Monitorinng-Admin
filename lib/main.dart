@@ -32,9 +32,9 @@ class _HomePageState extends State<HomePage> {
         routes: {
           '/': (context) => Login(),
           NavigateBar.id: (context) => NavigateBar(),
-          Plot.id: (context) => Plot(),
+          //Plot.id: (context) => Plot(),
           UserRegistration.id: (context) => UserRegistration(),
-          Voucher.id: (context) => Voucher(),
+          //Voucher.id: (context) => Voucher(),
 
         }
     );

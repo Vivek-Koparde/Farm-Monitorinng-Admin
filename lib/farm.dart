@@ -4,6 +4,7 @@ import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:smart_farm_monitoring_admin/api/farm_api.dart';
 import 'package:smart_farm_monitoring_admin/api/user_api.dart';
 import 'package:smart_farm_monitoring_admin/model/User.dart';
+import 'package:flutter/cupertino.dart';
 
 class Farm extends StatefulWidget {
   static String id="farm";
@@ -11,7 +12,7 @@ class Farm extends StatefulWidget {
   _FarmState createState() => _FarmState();
 }
 class _FarmState extends State<Farm> {
-  String dropdownValue='No user selected';
+  String dropdownValue='Select user';
   String uid;
   String farmName;
   double longitude;
@@ -41,150 +42,114 @@ class _FarmState extends State<Farm> {
                     "Assign Farm To User",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   FutureBuilder(
                       future: getUsers(),
                       builder: (BuildContext context,AsyncSnapshot snapshot){
                         print("SNAPSHOT DATA");
                         print(snapshot.data);
                         if (snapshot.data == null){
-                          return Text('Useres Loading...');
+                          return Text('Users Loading...');
                         }else{
                           arr = snapshot.data;
                           return
-                              DropdownButton<String>(
-
-                                icon: Icon(Icons.arrow_drop_down),
-
-                                iconSize: 24,
-                                elevation: 16,
-                                style: TextStyle(color: Colors.red, fontSize: 18),
-                                underline: Container(
-                                  height: 2,
-
-                                  color: Colors.deepPurpleAccent,
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(color: Colors.cyan),
                                 ),
-                                onChanged: (String data) {
-                                  setState(() {
-                                    dropdownValue = data;
-                                    for (FarmUser x in arr){
-                                      if (data == x.email){
-                                        farmUser = x;
-                                      }
-                                    }
-                                  });
-                                },
-                                items: snapshot.data.map<DropdownMenuItem<String>>((FarmUser value) {
-                                  farmUser=value;
-                                  return DropdownMenuItem<String>(
-                                    value: value.email,
-                                    child: Text(value.email),
-
-                                  );
-                                }).toList(),
+                                child: DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    hint: Padding(
+                                      padding: const EdgeInsets.only(left: 20.0),
+                                      child: Text(dropdownValue,style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.center),
+                                    ),
+                                    icon: Padding(
+                                      padding: const EdgeInsets.only(right:15.0),
+                                      child: Icon(Icons.arrow_drop_down,color: Colors.cyan,),
+                                    ),
+                                    iconSize: 24,
+                                    elevation: 16,
+                                    style: TextStyle(color: Colors.black, fontSize: 18),
+                                    onChanged: (String data) {
+                                      setState(() {
+                                        dropdownValue = data;
+                                        for (FarmUser x in arr){
+                                          if (data == x.email){
+                                            farmUser = x;
+                                          }
+                                        }
+                                      });
+                                    },
+                                    items: snapshot.data.map<DropdownMenuItem<String>>((FarmUser value) {
+                                      farmUser=value;
+                                      return DropdownMenuItem<String>(
+                                        value: value.email,
+                                        child: Text(value.email),
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
                               );
-
-
-
                         }
                   }),
-                  Text(dropdownValue),
-
-                  Text(
-                    "Farm Name",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black87),
-                  ),
                   TextFormField(
-                    initialValue: "",
                     onChanged: (newValue){
                       farmName=newValue;
                     },
-
-                    obscureText: false,
                     decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[400]),
-                        ),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[500]))),
-                  ),
-
-                  Text(
-                    "Latitude",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black87),
+                            borderSide: BorderSide(color: Colors.cyan),
+                          borderRadius: BorderRadius.circular(30.0)
+                        ),
+                      labelText: "Farm Name",
+                      hintText: "Enter Farm Name",
+                      prefixIcon: Icon(CupertinoIcons.square_stack_3d_up_fill,)
+                    ),
                   ),
                   TextFormField(
-                    initialValue: "",
                     keyboardType: TextInputType.number,
                     onChanged: (newValue){
                       latitude=double.parse(newValue);
                     },
-                    obscureText: false,
                     decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[400]),
-                        ),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[500]))),
-                  ),
-                  Text(
-                    "Longitude",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black87),
+                            borderSide: BorderSide(color: Colors.cyan),
+                          borderRadius: BorderRadius.circular(30.0)
+                        ),
+                      labelText: "Latitude",
+                      hintText: "Enter Latitude",
+                      prefixIcon: Icon(CupertinoIcons.line_horizontal_3_decrease_circle_fill)
+                    ),
                   ),
                   TextFormField(
-                    initialValue: "",
                     keyboardType: TextInputType.number,
                     onChanged: (newValue){
                       longitude=double.parse(newValue);
                     },
-                    obscureText: false,
                     decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[400]),
-                        ),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[500]))),
-                  ),
-
-                  Text(
-                    "Area (In Acres)",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                        color: Colors.black87),
+                            borderSide: BorderSide(color: Colors.cyan),
+                          borderRadius: BorderRadius.circular(30.0)
+                        ),
+                      labelText: "Longitude",
+                      hintText: "Enter Longitude",
+                      prefixIcon: Icon(CupertinoIcons.chart_bar_circle_fill)
+                    ),
                   ),
                   TextFormField(
-                    initialValue: "",
                     keyboardType: TextInputType.number,
                     onChanged: (newValue){
                       area=double.parse(newValue);
                     },
-                    obscureText: false,
                     decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey[400]),
-                        ),
                         border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[500]))),
+                            borderSide: BorderSide(color: Colors.cyan),
+                          borderRadius: BorderRadius.circular(30.0)
+                        ),
+                      labelText: "Area (In Acres)",
+                      hintText: "Enter Area (In Acres)",
+                      prefixIcon: Icon(CupertinoIcons.rectangle_split_3x3)
+                    ),
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -218,8 +183,8 @@ class _FarmState extends State<Farm> {
 
                       },
                       padding: const EdgeInsets.all(8.0),
-                      textColor: Colors.blue,
-                      color: Colors.grey[500],
+                      textColor: Colors.white,
+                      color: Color(0xff52B7FF),
                       child: new Text("Create Farm"),
                     ),
                   )

@@ -33,7 +33,7 @@ class _UserRegistrationState extends State<UserRegistration> {
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 40),
+            padding: EdgeInsets.symmetric(horizontal: 40,vertical: 30.0),
             height: MediaQuery.of(context).size.height - 80,
             width: double.infinity,
             child: SingleChildScrollView(
@@ -48,7 +48,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         fontFamily: 'RobotoMono'),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   TextFormField(
                     onChanged: (newValue){
@@ -153,10 +153,8 @@ class _UserRegistrationState extends State<UserRegistration> {
                         borderRadius: BorderRadius.circular(30.0)),
                   ),
                   SizedBox(height: 20.0,),
-
-
-
                   RaisedButton(
+                    padding: EdgeInsets.only(left: 120.0,right: 120.0),
                     child: Text(
                       'Add',
                       style: TextStyle(color: Colors.white),
@@ -165,6 +163,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                        createNewUser();
                     },
                     color: Color(0xff52B7FF),
+                    
                   )
                 ],
               ),

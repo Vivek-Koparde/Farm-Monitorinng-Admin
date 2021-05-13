@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
                       color: Colors.cyan,
                     ),
                     labelText: "Username",
-                    hintText: "Enter Usernamer",
+                    hintText: "Enter Username",
                   ),
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -95,17 +95,14 @@ class _LoginState extends State<Login> {
                     hintText: "Enter Password",
                   ),
                   obscureText: true,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
-                SizedBox(
-                  height: 30.0,
-                ),
-
                 SizedBox(
                   height: 20.0,
                 ),
                 RaisedButton(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
+                      borderRadius: BorderRadius.circular(5.0)),
                   child: Text(
                     'Login',
                     style: TextStyle(color: Colors.white),
